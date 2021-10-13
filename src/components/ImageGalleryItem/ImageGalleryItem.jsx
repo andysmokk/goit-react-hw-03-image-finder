@@ -18,7 +18,7 @@ class ImageGalleryItem extends Component {
 
   render() {
     return (
-      <div>
+      <>
         {this.state.images.map(image => (
           <li className={s.ImageGalleryItem} key={image.id}>
             <img
@@ -26,10 +26,9 @@ class ImageGalleryItem extends Component {
               alt={image.tags}
               className={s.ImageGalleryItemImage}
             />
-            <h1>{this.props.imageName}</h1>
           </li>
         ))}
-      </div>
+      </>
     );
   }
 }

@@ -10,12 +10,11 @@ class App extends Component {
   };
   onSubmitForm = imageName => {
     this.setState({ imageName });
-    console.log(imageName);
   };
 
   render() {
     return (
-      <div>
+      <div className="App">
         <Searchbar onSubmit={this.onSubmitForm} />
         <ImageGallery imageName={this.state.imageName} />
       </div>

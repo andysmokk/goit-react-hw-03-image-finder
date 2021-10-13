@@ -6,14 +6,6 @@ class Searchbar extends Component {
     imageName: '',
   };
 
-  // componentDidMount() {
-  //   fetch(
-  //     `https://pixabay.com/api/?q=cat&page=1&key=23025169-5a1370e5bf826cff1ac1e8732&image_type=photo&orientation=horizontal&per_page=12`,
-  //   )
-  //     .then(response => response.json())
-  //     .then(images => this.setState({ images: images.hits }));
-  // }
-
   onSubmitForm = e => {
     e.preventDefault();
 
