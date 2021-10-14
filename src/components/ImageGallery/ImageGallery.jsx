@@ -20,8 +20,8 @@ class ImageGallery extends Component {
       // .finally(() => this.setState({ loading: false }));
     }
 
-    console.log('prevState.images', prevState.images);
-    console.log('this.state.images', this.state.images);
+    // console.log('prevState.images', prevState.images);
+    // console.log('this.state.images', this.state.images);
 
     if (prevState.images !== this.state.images) {
       window.scrollTo({
@@ -32,6 +32,7 @@ class ImageGallery extends Component {
   }
 
   loadMore = moreImages => {
+    console.log(moreImages);
     const { images } = this.state;
     this.setState({ images: [...images, ...moreImages] });
   };
@@ -41,8 +42,11 @@ class ImageGallery extends Component {
       <>
         {/* {this.state.loading && <h1>Загрузка...</h1>} */}
         {!this.props.imageName && <h2>Введите название картинки</h2>}
-        <ul className={s.ImageGallery}>
-          <ImageGalleryItem images={this.state.images} />
+        <ul className={s.ImageGallery} onClick={this.props.onOpenModal}>
+          <ImageGalleryItem
+            images={this.state.images}
+            currentImage={this.props.currentImage}
+          />
         </ul>
         {this.state.images.length > 0 && (
           <ButtonLoadMore

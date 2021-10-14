@@ -18,11 +18,10 @@ class Searchbar extends Component {
     this.setState({ imageName: '' });
   };
 
-  onChangeImageName = ({ target }) => {
-    const { name, value } = target;
-    // console.log('e.target.name:', name);
-    // console.log('e.target.value:', value);
-    this.setState({ [name]: value });
+  onChangeImageName = e => {
+    // const { name, value } = target;
+    // this.setState({ [name]: value });
+    this.setState({ imageName: e.target.value });
   };
 
   render() {

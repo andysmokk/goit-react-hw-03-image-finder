@@ -31,6 +31,7 @@ class ImageGalleryItem extends Component {
                 src={image.webformatURL}
                 alt={image.tags}
                 className={s.ImageGalleryItemImage}
+                data-image={image.largeImageURL}
               />
             </li>
           ))}
