@@ -3,7 +3,7 @@ import './App.css';
 
 import Searchbar from './components/Searchbar/Searchbar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
-import Button from './components/Button/Button';
+// import ButtonLoadMore from './components/ButtonLoadMore/ButtonLoadMore';
 
 class App extends Component {
   state = {
@@ -11,7 +11,7 @@ class App extends Component {
   };
 
   onSubmitForm = imageName => {
-    this.setState({ imageName });
+    this.setState({ imageName: imageName });
   };
 
   render() {
@@ -19,7 +19,7 @@ class App extends Component {
       <div className="App">
         <Searchbar onSubmit={this.onSubmitForm} />
         <ImageGallery imageName={this.state.imageName} />
-        <Button />
+        {/* <ButtonLoadMore /> */}
       </div>
     );
   }
