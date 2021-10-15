@@ -35,8 +35,8 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.showModal && (
-          <Modal>
-            <img src={this.state.currentImage} width="950" />
+          <Modal onCloseModal={this.toggleModal}>
+            <img src={this.state.currentImage} alt="" width="950" />
           </Modal>
         )}
         <Searchbar onSubmit={this.onSubmitForm} />
