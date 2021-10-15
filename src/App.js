@@ -18,7 +18,7 @@ class App extends Component {
   };
 
   onOpenModal = e => {
-    console.log(e.target.nodeName);
+    // console.log(e.target.nodeName);
     if (e.target.nodeName === 'IMG') {
       this.setState(({ showModal }) => ({
         currentImage: e.target.dataset.image,
@@ -45,7 +45,7 @@ class App extends Component {
           onOpenModal={this.onOpenModal}
           currentImage={this.state.currentImage}
         />
-        {/* <ButtonLoadMore /> */}
+        {/* <ToastContainer autoClose={2000} /> */}
       </div>
     );
   }
