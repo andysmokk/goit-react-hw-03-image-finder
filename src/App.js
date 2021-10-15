@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { ToastContainer, Zoom } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 import Searchbar from './components/Searchbar/Searchbar';
@@ -45,7 +48,18 @@ class App extends Component {
           onOpenModal={this.onOpenModal}
           currentImage={this.state.currentImage}
         />
-        {/* <ToastContainer autoClose={2000} /> */}
+        <ToastContainer
+          autoClose={2500}
+          position="bottom-right"
+          transition={Zoom}
+        />
+        {/* <Loader
+          type="Bars"
+          color="#00BFFF"
+          height={100}
+          width={100}
+          timeout={2000}
+        /> */}
       </div>
     );
   }

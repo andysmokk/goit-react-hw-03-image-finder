@@ -7,6 +7,10 @@ class ImageGalleryItem extends Component {
   //   loading: false,
   // };
 
+  // if (this.state.images.length === 0) {
+  //   this.setState({ loading: false });
+  //   return toast.info(`Картинок с названием ${`"${this.props.imageName}"`} нет!`);
+  // }
   // componentDidUpdate(prevProps, prevState) {
   //   if (prevProps.imageName !== this.props.imageName) {
   //     this.setState({ loading: true });
@@ -41,3 +45,8 @@ class ImageGalleryItem extends Component {
 }
 
 export default ImageGalleryItem;
+
+// if (this.state.images.length === 0) {
+//   this.setState({ loading: false });
+//   return toast.info(`Картинок с названием ${`"${this.props.imageName}"`} нет!`);
+// }

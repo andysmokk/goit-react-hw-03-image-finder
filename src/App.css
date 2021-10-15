@@ -4,3 +4,24 @@
   grid-gap: 16px;
   padding-bottom: 24px;
 }
+
+.containerLoader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+}
+
+.Toastify__toast {
+  background-color: #d6dcff;
+}
+
+.Toastify__toast-theme--light {
+  color: black;
+}

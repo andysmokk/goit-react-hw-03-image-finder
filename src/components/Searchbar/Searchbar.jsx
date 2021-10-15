@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import s from './Searchbar.module.css';
 
 class Searchbar extends Component {
@@ -12,8 +11,7 @@ class Searchbar extends Component {
     e.preventDefault();
 
     if (this.state.imageName.trim() === '') {
-      toast.info('Введите название картинки!');
-      return;
+      return toast.info('Введите название картинки!');
     }
 
     this.props.onSubmit(this.state.imageName);
@@ -47,7 +45,6 @@ class Searchbar extends Component {
             />
           </form>
         </header>
-        <ToastContainer autoClose={2000} />
       </>
     );
   }
