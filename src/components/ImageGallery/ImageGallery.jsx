@@ -11,6 +11,7 @@ class ImageGallery extends Component {
   state = {
     images: [],
     loading: false,
+    page: 1,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -20,7 +21,7 @@ class ImageGallery extends Component {
 
       setTimeout(() => {
         imagesAPI
-          .fetchImages(imageName)
+          .fetchImages(imageName, this.state.page)
           .then(images => {
             images.hits.length === 0
               ? toast.info(`Картинок с названием ${`"${imageName}"`} нет`)
@@ -31,8 +32,6 @@ class ImageGallery extends Component {
       }, 1000);
     }
 
-    // console.log('prevState.images', prevState.images);
-    // console.log('this.state.images', this.state.images);
     if (prevState.images !== this.state.images) {
       window.scrollTo({
         top: document.documentElement.scrollHeight,
@@ -42,7 +41,6 @@ class ImageGallery extends Component {
   }
 
   loadMore = moreImages => {
-    // console.log(moreImages);
     const { images } = this.state;
     this.setState({ images: [...images, ...moreImages] });
   };
@@ -64,6 +62,7 @@ class ImageGallery extends Component {
             images={this.state.images}
             imageName={this.props.imageName}
             loadMore={this.loadMore}
+            dataUpdate={this.dataUpdate}
           />
         )}
         {this.state.loading && <LoaderSpinner />}

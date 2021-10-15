@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { ToastContainer, Zoom } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-
 import Searchbar from './components/Searchbar/Searchbar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Modal from './components/Modal/Modal';
-// import ButtonLoadMore from './components/ButtonLoadMore/ButtonLoadMore';
 
 class App extends Component {
   state = {
     imageName: '',
     showModal: false,
     currentImage: '',
+    page: 1,
   };
 
   toggleModal = () => {
@@ -21,7 +19,6 @@ class App extends Component {
   };
 
   onOpenModal = e => {
-    // console.log(e.target.nodeName);
     if (e.target.nodeName === 'IMG') {
       this.setState(({ showModal }) => ({
         currentImage: e.target.dataset.image,
@@ -33,6 +30,10 @@ class App extends Component {
   onSubmitForm = imageName => {
     this.setState({ imageName: imageName });
   };
+
+  // dataUpdate = data => {
+  //   console.log(data);
+  // };
 
   render() {
     return (
@@ -47,19 +48,13 @@ class App extends Component {
           imageName={this.state.imageName}
           onOpenModal={this.onOpenModal}
           currentImage={this.state.currentImage}
+          // dataUpdate={this.dataUpdate}
         />
         <ToastContainer
           autoClose={2500}
           position="bottom-right"
           transition={Zoom}
         />
-        {/* <Loader
-          type="Bars"
-          color="#00BFFF"
-          height={100}
-          width={100}
-          timeout={2000}
-        /> */}
       </div>
     );
   }

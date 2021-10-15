@@ -11,8 +11,6 @@ class ButtonLoadMore extends Component {
 
   buttonLoadMore = () => {
     this.setState({ loading: true });
-    console.log();
-
     setTimeout(() => {
       imagesAPI
         .fetchImages(this.props.imageName, this.state.page + 1)
@@ -20,7 +18,6 @@ class ButtonLoadMore extends Component {
         .then(this.setState({ page: this.state.page + 1 }))
         .finally(() => this.setState({ loading: false }));
     }, 1000);
-    console.log('this.props.imageName', this.props.imageName);
   };
 
   render() {
