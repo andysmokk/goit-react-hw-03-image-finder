@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import s from './Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
 
 class Modal extends Component {
+  static propTypes = {
+    children: PropTypes.object.isRequired,
+  };
+
   componentDidMount() {
     document.addEventListener('keydown', this.onKeyDown);
   }
@@ -26,9 +31,12 @@ class Modal extends Component {
   };
 
   render() {
+    const { children } = this.props;
+    const { onOverlayModalClick } = this;
+
     return createPortal(
-      <div className={s.Overlay} onClick={this.onOverlayModalClick}>
-        <div className={s.Modal}>{this.props.children}</div>
+      <div className={s.Overlay} onClick={onOverlayModalClick}>
+        <div className={s.Modal}>{children}</div>
       </div>,
       modalRoot,
     );

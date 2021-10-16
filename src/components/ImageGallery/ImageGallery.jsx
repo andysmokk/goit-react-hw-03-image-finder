@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { toast } from 'react-toastify';
-
 import s from './ImageGallery.module.css';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import imagesAPI from '../../services/imagesApi';
@@ -16,15 +15,19 @@ class ImageGallery extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { imageName } = this.props;
+    const { page, images } = this.state;
+
     if (prevProps.imageName !== imageName) {
       this.setState({ loading: true });
 
       setTimeout(() => {
         imagesAPI
-          .fetchImages(imageName, this.state.page)
+          .fetchImages(imageName, page)
           .then(images => {
             images.hits.length === 0
-              ? toast.info(`Картинок с названием ${`"${imageName}"`} нет`)
+              ? toast.info(
+                  `Картинок с названием ${`"${imageName}"`} нет. Введите новое название.`,
+                )
               : this.setState({ images: images.hits });
           })
           .catch(error => console.log(error))
@@ -32,7 +35,7 @@ class ImageGallery extends Component {
       }, 1000);
     }
 
-    if (prevState.images !== this.state.images) {
+    if (prevState.images !== images) {
       window.scrollTo({
         top: document.documentElement.scrollHeight,
         behavior: 'smooth',
@@ -42,30 +45,29 @@ class ImageGallery extends Component {
 
   loadMore = moreImages => {
     const { images } = this.state;
+
     this.setState({ images: [...images, ...moreImages] });
   };
 
   render() {
+    const { state, loadMore } = this;
+    const { images, loading } = state;
+    const { imageName, onOpenModal } = this.props;
+
     return (
       <>
-        {!this.props.imageName && (
-          <h2 className={s.title}>Введите название картинки</h2>
-        )}
-        <ul className={s.ImageGallery} onClick={this.props.onOpenModal}>
-          <ImageGalleryItem
-            images={this.state.images}
-            currentImage={this.props.currentImage}
-          />
+        {!imageName && <h2 className={s.title}>Введите название картинки</h2>}
+        <ul className={s.ImageGallery} onClick={onOpenModal}>
+          <ImageGalleryItem images={images} />
         </ul>
-        {this.state.images.length > 0 && (
+        {images.length > 0 && (
           <ButtonLoadMore
-            images={this.state.images}
-            imageName={this.props.imageName}
-            loadMore={this.loadMore}
-            dataUpdate={this.dataUpdate}
+            images={images}
+            imageName={imageName}
+            loadMore={loadMore}
           />
         )}
-        {this.state.loading && <LoaderSpinner />}
+        {loading && <LoaderSpinner />}
       </>
     );
   }

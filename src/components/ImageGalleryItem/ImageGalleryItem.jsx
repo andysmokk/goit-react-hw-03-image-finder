@@ -1,12 +1,18 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import s from './ImageGalleryItem.module.css';
 
 class ImageGalleryItem extends Component {
+  static propTypes = {
+    images: PropTypes.array.isRequired,
+  };
+
   render() {
+    const { images } = this.props;
     return (
       <>
-        {this.props.images &&
-          this.props.images.map(image => (
+        {images &&
+          images.map(image => (
             <li className={s.ImageGalleryItem} key={image.id}>
               <img
                 src={image.webformatURL}

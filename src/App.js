@@ -8,7 +8,7 @@ import Modal from './components/Modal/Modal';
 
 class App extends Component {
   state = {
-    imageName: '',
+    imageName: 0,
     showModal: false,
     currentImage: '',
     page: 1,
@@ -18,10 +18,10 @@ class App extends Component {
     this.setState(state => ({ showModal: !state.showModal }));
   };
 
-  onOpenModal = e => {
-    if (e.target.nodeName === 'IMG') {
+  onOpenModal = ({ target }) => {
+    if (target.nodeName === 'IMG') {
       this.setState(({ showModal }) => ({
-        currentImage: e.target.dataset.image,
+        currentImage: target.dataset.image,
         showModal: !showModal,
       }));
     }
@@ -31,27 +31,21 @@ class App extends Component {
     this.setState({ imageName: imageName });
   };
 
-  // dataUpdate = data => {
-  //   console.log(data);
-  // };
-
   render() {
+    const { state, toggleModal, onSubmitForm, onOpenModal } = this;
+    const { showModal, currentImage, imageName } = state;
+
     return (
       <div className="App">
-        {this.state.showModal && (
-          <Modal onCloseModal={this.toggleModal}>
-            <img src={this.state.currentImage} alt="" width="950" />
+        {showModal && (
+          <Modal onCloseModal={toggleModal}>
+            <img src={currentImage} alt="" width="950" />
           </Modal>
         )}
-        <Searchbar onSubmit={this.onSubmitForm} />
-        <ImageGallery
-          imageName={this.state.imageName}
-          onOpenModal={this.onOpenModal}
-          currentImage={this.state.currentImage}
-          // dataUpdate={this.dataUpdate}
-        />
+        <Searchbar onSubmit={onSubmitForm} />
+        <ImageGallery imageName={imageName} onOpenModal={onOpenModal} />
         <ToastContainer
-          autoClose={2500}
+          autoClose={3000}
           position="bottom-right"
           transition={Zoom}
         />

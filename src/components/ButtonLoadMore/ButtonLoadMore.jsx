@@ -1,29 +1,49 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import s from './ButtonLoadMore.module.css';
 import imagesAPI from '../../services/imagesApi';
 import LoaderSpinner from '../LoaderSpinner/LoaderSpinner';
 
 class ButtonLoadMore extends Component {
+  static propTypes = {
+    imageName: PropTypes.string.isRequired,
+    images: PropTypes.array.isRequired,
+    loadMore: PropTypes.func.isRequired,
+  };
+
   state = {
     page: 1,
     loading: false,
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    const { imageName } = this.props;
+
+    if (prevProps.imageName !== imageName) {
+      this.setState({ page: 1, imageName: '' });
+    }
+  }
+
   buttonLoadMore = () => {
+    const { imageName, loadMore } = this.props;
+    const { page } = this.state;
     this.setState({ loading: true });
     setTimeout(() => {
       imagesAPI
-        .fetchImages(this.props.imageName, this.state.page + 1)
-        .then(images => this.props.loadMore(images.hits))
-        .then(this.setState({ page: this.state.page + 1 }))
+        .fetchImages(imageName, page + 1)
+        .then(images => loadMore(images.hits))
+        .then(this.setState({ page: page + 1 }))
+        .catch(error => console.log(error))
         .finally(() => this.setState({ loading: false }));
     }, 1000);
   };
 
   render() {
+    const { state, buttonLoadMore } = this;
+    const { loading } = state;
     return (
-      <button type="button" className={s.Button} onClick={this.buttonLoadMore}>
-        {this.state.loading ? <LoaderSpinner /> : <p>Load more</p>}
+      <button type="button" className={s.Button} onClick={buttonLoadMore}>
+        {loading ? <LoaderSpinner /> : <p>Load more</p>}
       </button>
     );
   }

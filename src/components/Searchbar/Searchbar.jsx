@@ -8,38 +8,44 @@ class Searchbar extends Component {
   };
 
   onSubmitForm = e => {
+    const { imageName } = this.state;
+    const { onSubmit } = this.props;
+
     e.preventDefault();
 
-    if (this.state.imageName.trim() === '') {
+    if (imageName.trim() === '') {
       return toast.info('Введите название картинки!');
     }
 
-    this.props.onSubmit(this.state.imageName);
+    onSubmit(imageName);
     this.setState({ imageName: '' });
   };
 
-  onChangeImageName = e => {
-    this.setState({ imageName: e.target.value });
+  onChangeImageName = ({ target }) => {
+    this.setState({ imageName: target.value });
   };
 
   render() {
+    const { state, onSubmitForm, onChangeImageName } = this;
+    const { imageName } = state;
+
     return (
       <>
         <header className={s.Searchbar}>
-          <form className={s.SearchForm} onSubmit={this.onSubmitForm}>
+          <form className={s.SearchForm} onSubmit={onSubmitForm}>
             <button type="submit" className={s.SearchFormButton}>
               <span className={s.SearchFormButtonLabel}>Search</span>
             </button>
 
             <input
               name="imageName"
-              value={this.state.imageName}
+              value={imageName}
               className={s.SearchFormInput}
               type="text"
               autoComplete="off"
               autoFocus
               placeholder="Search images and photos"
-              onChange={this.onChangeImageName}
+              onChange={onChangeImageName}
             />
           </form>
         </header>
